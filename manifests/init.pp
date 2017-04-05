@@ -12,13 +12,11 @@
 #
 #
 class etherpad_lite (
-  $base_install_dir = '/opt/etherpad-lite',
+  $base_install_dir = '/var/www',
   $base_log_dir     = '/var/log',
   $ep_ensure        = 'present',
   $ep_user          = 'eplite',
   $eplite_version   = 'develop',
-  # If set to system will install system package.
-  $nodejs_version   = 'node_0.10',
 ) {
 
   # where the modules are, needed to easily install modules later
@@ -53,24 +51,9 @@ class etherpad_lite (
     ensure => present,
   }
 
-  anchor { 'nodejs-package-install': }
-
-  if ($nodejs_version != 'system') {
-    class { '::nodejs':
-      repo_url_suffix => $nodejs_version,
-      before          => Anchor['nodejs-package-install'],
-    }
-  } else {
-    package { ['nodejs', 'npm']:
-      ensure => present,
-      before => Anchor['nodejs-package-install'],
-    }
-  }
-
   file { '/usr/local/bin/node':
     ensure  => link,
     target  => '/usr/bin/nodejs',
-    require => Anchor['nodejs-package-install'],
     before  => Anchor['nodejs-anchor'],
   }
 

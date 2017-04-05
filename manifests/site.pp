@@ -1,13 +1,13 @@
 # == Class: etherpad_lite::site
 #
 class etherpad_lite::site (
-  $database_password,
+  $database_password = '',
   $etherpad_title,
   $database_host = 'localhost',
   $database_name = 'etherpad-lite',
   $database_user = 'eplite',
-  $db_type       = 'mysql',
-  $session_key   = '',
+  $db_type       = 'dirty',
+  $session_key,
 ) {
 
   include ::etherpad_lite
@@ -39,30 +39,5 @@ class etherpad_lite::site (
     require => Class['etherpad_lite'],
   }
 
-  include ::logrotate
-  logrotate::file { 'epliteerror':
-    log     => "${base}/${etherpad_lite::ep_user}/error.log",
-    options => [
-      'compress',
-      'copytruncate',
-      'missingok',
-      'rotate 7',
-      'daily',
-      'notifempty',
-    ],
-    require => Service['etherpad-lite'],
-  }
 
-  logrotate::file { 'epliteaccess':
-    log     => "${base}/${etherpad_lite::ep_user}/access.log",
-    options => [
-      'compress',
-      'copytruncate',
-      'missingok',
-      'rotate 7',
-      'daily',
-      'notifempty',
-    ],
-    require => Service['etherpad-lite'],
-  }
 }
