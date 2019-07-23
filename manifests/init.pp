@@ -85,15 +85,8 @@ class etherpad_lite (
     creates     => "${base_install_dir}/etherpad-lite/node_modules",
   }
 
-  file { '/etc/init/etherpad-lite.conf':
-    ensure  => present,
-    content => template('etherpad_lite/upstart.erb'),
-    replace => true,
-    owner   => 'root',
-  }
-
   systemd::unit_file { 'etherpad-lite.service':
-      source => 'puppet:///modules/puppet-etherpad_lite/etherpad-lite.service',
+      source => 'puppet:///modules/etherpad_lite/etherpad-lite.service',
   }
 
   file { "${base_log_dir}/${ep_user}":
