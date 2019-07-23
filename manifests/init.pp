@@ -92,9 +92,8 @@ class etherpad_lite (
     owner   => 'root',
   }
 
-  file { '/etc/init.d/etherpad-lite':
-    ensure => link,
-    target => '/lib/init/upstart-job',
+  systemd::unit_file { 'jira.service':
+      source => 'puppet:///modules/jira_asf/jira.service',
   }
 
   file { "${base_log_dir}/${ep_user}":
