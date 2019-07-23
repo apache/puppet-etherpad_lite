@@ -92,8 +92,8 @@ class etherpad_lite (
     owner   => 'root',
   }
 
-  systemd::unit_file { 'jira.service':
-      source => 'puppet:///modules/jira_asf/jira.service',
+  systemd::unit_file { 'etherpad-lite.service':
+      source => 'puppet:///ext-modules/puppet-etherpad_lite/etherpad-lite.service',
   }
 
   file { "${base_log_dir}/${ep_user}":
