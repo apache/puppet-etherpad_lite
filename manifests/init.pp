@@ -93,7 +93,7 @@ class etherpad_lite (
   }
 
   systemd::unit_file { 'etherpad-lite.service':
-      source => 'puppet:///ext-modules/puppet-etherpad_lite/etherpad-lite.service',
+      source => 'puppet:///puppet-etherpad_lite/etherpad-lite.service',
   }
 
   file { "${base_log_dir}/${ep_user}":
