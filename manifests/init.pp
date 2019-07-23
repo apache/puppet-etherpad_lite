@@ -66,7 +66,6 @@ class etherpad_lite (
     owner    => $ep_user,
     revision => $eplite_version,
     require  => [
-        Package['git'],
         User[$ep_user],
     ],
   }
